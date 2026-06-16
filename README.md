@@ -31,6 +31,8 @@ sh install.sh
 
 Copy the project directory to your IPFire system and run the installer as **root**.
 
+Installation complete; go to Services > Syncthing to proceed.
+
 ## Uninstallation
 
 ```sh
