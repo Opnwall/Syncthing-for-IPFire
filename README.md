@@ -9,6 +9,7 @@
 ![Architecture](https://img.shields.io/badge/Architecture-x86__64-blue)
 ![Platform](https://img.shields.io/badge/Platform-IPFire-orange)
 ![Status](https://img.shields.io/badge/Status-Tested-success)
+Syncthing is a free and open-source continuous file synchronization tool that securely syncs files directly between devices without relying on a central cloud server. Data is transferred using end-to-end encryption, ensuring privacy and security. Syncthing supports Windows, macOS, Linux, and many other platforms, making it an ideal solution for self-hosted, peer-to-peer file synchronization across computers and networks.
 
 This plugin installs **Syncthing** on IPFire and provides an easy way to deploy and manage Syncthing on your firewall system.
 
