@@ -5,14 +5,14 @@
 ![Platform](https://img.shields.io/badge/Platform-IPFire-orange)
 ![Status](https://img.shields.io/badge/Status-Tested-success)
 
-本插件用于在 IPFire 上安装 Syncthing，提供一种简单便捷的方式在您的防火墙系统上部署和管理 Syncthing。
+本插件用于在 IPFire 上安装 Syncthing，提供一种简单便捷的方式在 IPFire 防火墙系统上部署和管理 Syncthing。
 
 ## 功能
 
 - 快速安装与卸载
 - 原生集成于 IPFire 系统
 - 基于浏览器的 Syncthing 管理界面
-- 已在 **IPFire 2.29 (x86_64) Core Update 203** 上测试验证
+- 已在 **IPFire 2.29 (x86_64) Core Update 203** 上测试通过
 
 ## 截图
 
