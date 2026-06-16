@@ -1,39 +1,23 @@
 # Syncthing for IPFire
 
-This plugin installs Syncthing on IPFire with:
+This plugin installs Syncthing on IPFire.
 
-- an init script at `/etc/rc.d/init.d/syncthing`
-- a Web UI page at `/srv/web/ipfire/cgi-bin/syncthing.cgi`
-- a menu entry at `/var/ipfire/menu.d/84-syncthing.menu`
-- settings under `/var/ipfire/syncthing`
-- Syncthing data/config under `/var/lib/syncthing`
+Tested on IPFire 2.29 (x86_64) Core Update 203
 
-## Install
+![](image/syncthing.png)
 
-Run as root from this directory:
+## Installation
 
 ```sh
 sh install.sh
 ```
+Run the installer as root from the project directory after copying it to your IPFire system.
 
-The installer uses `src/usr/local/bin/syncthing` when it exists and is
-executable. If no local binary is present, it downloads the latest Syncthing
-Linux release for the detected architecture from GitHub.
-
-To force an architecture:
-
-```sh
-SYNCTHING_ARCH=amd64 sh install.sh
-```
-
-Supported architecture values are `amd64`, `arm64`, `arm-v7`, `arm`, and `386`.
-
-## Uninstall
+## Uninstallation
 
 ```sh
 sh uninstall.sh
 ```
+## Disclaimer
+This is an unofficial community project and is not affiliated with or supported by the IPFire team. Please review the code and use it at your own discretion.
 
-The uninstall script maps files from the `src/` mirror back to their real IPFire
-paths and removes runtime state under `/var/ipfire/syncthing` and
-`/var/lib/syncthing`.
