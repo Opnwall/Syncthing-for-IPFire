@@ -1,8 +1,20 @@
 # Syncthing for IPFire
 
-This plugin installs Syncthing on IPFire.
+![IPFire](https://img.shields.io/badge/IPFire-2.29%20Core%20Update%20203-red)
+![Architecture](https://img.shields.io/badge/Architecture-x86__64-blue)
+![Platform](https://img.shields.io/badge/Platform-IPFire-orange)
+![Status](https://img.shields.io/badge/Status-Tested-success)
 
-Tested on IPFire 2.29 (x86_64) Core Update 203
+This plugin installs **Syncthing** on IPFire and provides an easy way to deploy and manage Syncthing on your firewall system.
+
+## Features
+
+- Quick installation and removal
+- Native integration with IPFire
+- Browser-based Syncthing management interface
+- Tested on **IPFire 2.29 (x86_64) Core Update 203**
+
+## Screenshot
 
 ![](image/syncthing.png)
 
@@ -11,13 +23,29 @@ Tested on IPFire 2.29 (x86_64) Core Update 203
 ```sh
 sh install.sh
 ```
-Run the installer as root from the project directory after copying it to your IPFire system.
+
+Copy the project directory to your IPFire system and run the installer as **root**.
 
 ## Uninstallation
 
 ```sh
 sh uninstall.sh
 ```
-## Disclaimer
-This is an unofficial community project and is not affiliated with or supported by the IPFire team. Please review the code and use it at your own discretion.
 
+## Tested Environment
+
+| Component | Version |
+|-----------|---------|
+| IPFire | 2.29 |
+| Core Update | 203 |
+| Architecture | x86_64 |
+
+## Disclaimer
+
+This is an unofficial community project and is **not affiliated with, endorsed by, or supported by the IPFire team**.
+
+Please review the source code before installation and use it at your own risk.
+
+## Contributing
+
+Bug reports, feature requests, and pull requests are welcome.
