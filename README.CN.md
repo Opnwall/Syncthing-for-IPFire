@@ -1,3 +1,9 @@
+<div align="center">
+  <a href="README.md">English</a> |
+  <a href="README.CN.md">中文</a>
+</div>
+
+
 # Syncthing for IPFire
 
 ![IPFire](https://img.shields.io/badge/IPFire-2.29%20Core%20Update%20203-red)
