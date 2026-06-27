@@ -49,9 +49,7 @@ sh uninstall.sh
 
 ## Disclaimer
 
-This is an unofficial community project and is **not affiliated with, endorsed by, or supported by the IPFire team**.
-
-Please review the source code before installation and use it at your own risk.
+This is an unofficial community project with no affiliation to the IPFire team; use it at your own risk.
 
 ## Contributing
 
