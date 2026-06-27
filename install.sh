@@ -58,13 +58,13 @@ download_syncthing() {
     release_json="$DOWNLOAD_TMPDIR/release.json"
 
     echo "Resolving latest Syncthing release"
-    curl -fL "$api_url" -o "$release_json"
+    curl --retry 3 --retry-delay 5 --connect-timeout 30 -fL "$api_url" -o "$release_json"
 
     asset_url="$(grep -Eo 'https://[^"]+syncthing-linux-'"$arch"'-v[^"]+\.tar\.gz' "$release_json" | head -n 1 || true)"
     [ -n "$asset_url" ] || die "Could not find a Syncthing linux-$arch tarball in the latest release"
 
     echo "Downloading $asset_url"
-    curl -fL "$asset_url" -o "$DOWNLOAD_TMPDIR/syncthing.tar.gz"
+    curl --retry 3 --retry-delay 5 --connect-timeout 30 -fL "$asset_url" -o "$DOWNLOAD_TMPDIR/syncthing.tar.gz"
 
     tar -xzf "$DOWNLOAD_TMPDIR/syncthing.tar.gz" -C "$DOWNLOAD_TMPDIR"
     bin_path="$(find "$DOWNLOAD_TMPDIR" -type f -path '*/syncthing' | head -n 1)"
@@ -98,6 +98,7 @@ print_step "Checking source files"
 [ -d "$BASE_DIR/src" ] || die "Missing directory: src"
 [ -f "$BASE_DIR/src/etc/rc.d/init.d/syncthing" ] || die "Missing file: src/etc/rc.d/init.d/syncthing"
 [ -f "$BASE_DIR/src/srv/web/ipfire/cgi-bin/syncthing.cgi" ] || die "Missing file: src/srv/web/ipfire/cgi-bin/syncthing.cgi"
+[ -f "$BASE_DIR/src/etc/sudoers.d/syncthing" ] || die "Missing file: src/etc/sudoers.d/syncthing"
 
 print_step "Stopping old service"
 /etc/rc.d/init.d/syncthing stop >/dev/null 2>&1 || true
@@ -119,7 +120,9 @@ if [ -f /var/ipfire/syncthing/settings ]; then
     cp -p /var/ipfire/syncthing/settings "$tmp_settings"
 fi
 
-cp -R -f "$BASE_DIR/src/." /
+for dir in etc srv usr var; do
+    cp -R -f "$BASE_DIR/src/$dir/." "/$dir/"
+done
 
 if [ -n "$tmp_settings" ] && [ -f "$tmp_settings" ]; then
     install -m 600 "$tmp_settings" /var/ipfire/syncthing/settings
@@ -142,6 +145,8 @@ install -d -m 755 /var/ipfire/syncthing
 touch /var/ipfire/syncthing/state
 chown syncthing:syncthing /var/lib/syncthing 2>/dev/null || true
 chmod 755 /etc/rc.d/init.d/syncthing /usr/local/bin/syncthing /srv/web/ipfire/cgi-bin/syncthing.cgi
+chown root:root /etc/sudoers.d/syncthing 2>/dev/null || true
+chmod 440 /etc/sudoers.d/syncthing
 chmod 644 /var/ipfire/menu.d/84-syncthing.menu
 chmod 600 /var/ipfire/syncthing/settings /var/ipfire/syncthing/state
 
@@ -152,12 +157,6 @@ ln -sf ../init.d/syncthing /etc/rc.d/rc6.d/K01syncthing
 
 print_step "Configuring sudo permissions"
 install -d -m 755 /etc/sudoers.d
-cat > /etc/sudoers.d/syncthing <<'EOF'
-Cmnd_Alias SYNCTHING_SERVICE = /etc/rc.d/init.d/syncthing start, /etc/rc.d/init.d/syncthing stop, /etc/rc.d/init.d/syncthing restart, /etc/rc.d/init.d/syncthing status, /etc/rc.d/init.d/syncthing version
-nobody ALL=(root) NOPASSWD: SYNCTHING_SERVICE
-nobody ALL=(root) NOPASSWD: /usr/bin/install -m 600 /tmp/syncthing-settings.* /var/ipfire/syncthing/settings
-EOF
-chmod 440 /etc/sudoers.d/syncthing
 visudo -cf /etc/sudoers.d/syncthing >/dev/null || die "sudoers validation failed"
 
 print_step "Reloading Web service"
